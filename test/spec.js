@@ -66,6 +66,16 @@ describe('cgBusy', function() {
 		scope.$apply();
 		expect(this.element.children().css('display')).toBe('none'); //ensure its now invisible as the promise is resolved
 	});
+	
+	it('should not infdig with multiple promises in object notation', function() {
+		
+		this.element = compile('<div cg-busy="{ promise: [my_promise, my_promise2] }"></div>')(scope);
+
+		expect(function () {
+			angular.element('body').append(this.element);
+			scope.$apply();
+		}).not.toThrow();
+	});
 
 	it('should load custom templates', function(){
 
